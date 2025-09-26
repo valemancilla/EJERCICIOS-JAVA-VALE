@@ -1,33 +1,22 @@
-function detectarPlagio(base, frasesEstudiante) {
-    function normalizar(frase) {
-        return frase
-            .trim()
-            .toLowerCase()
-            .replace(/[.!?]$/, '');
-    }
-
-    const baseNormalizada = base.map(normalizar);
-
-    const plagiadas = frasesEstudiante.filter(frase => {
-        return baseNormalizada.includes(normalizar(frase));
-    });
-
-    return plagiadas;
+function detectarPlagio(b, f) {
+    const limpiar = s => s.toLowerCase().trim().replace(/[.!?]$/, '');
+    return f.filter(frase => 
+        b.some(baseFrase => limpiar(frase) === limpiar(baseFrase))
+    );
 }
 
-// Pedir al usuario la base de frases sospechosas
-const baseInput = prompt("Ingresa las frases base:\nEj: El conocimiento es poder.|Aprender nunca es una pérdida de tiempo!|Programar es divertido");
-const frasesEstudianteInput = prompt("Ingresa las frases del estudiante :\nEj: el conocimiento es poder| Aprender nunca es una pérdida de tiempo |programar es divertido.");
+let base = ['El conocimiento es poder.', 'Aprender nunca es una pérdida de tiempo!', 'Programar es divertido'];
+let frasesEstudiante = ['el conocimiento es poder', ' Aprender nunca es una pérdida de tiempo', 'programar es divertido.', 'La práctica hace al maestro'];
 
+console.log(detectarPlagio(base, frasesEstudiante));
 
+let b = prompt("Frases de la base (separadas por ;):");
+let f = prompt("Frases del estudiante (separadas por ;):");
 
-// Ejecutar función
-const resultado = detectarPlagio(base, frasesEstudiante);
-
-// Mostrar resultados
-if (resultado.length === 0) {
-    alert("✅ No se detectaron frases plagiadas.");
-} else {
-    alert("⚠️ Frases plagiadas:\n\n" + resultado.join("\n"));
-    console.log("Frases plagiadas:", resultado);
+if (b && f) {
+    let arrB = b.split(';').map(f => f.trim());
+    let arrF = f.split(';').map(f => f.trim());
+    let r = detectarPlagio(arrB, arrF);
+    console.log(`Frases plagiadas: [${r.join(', ')}]`);
+    alert(`Frases plagiadas: ${r.join(', ')}`);
 }
