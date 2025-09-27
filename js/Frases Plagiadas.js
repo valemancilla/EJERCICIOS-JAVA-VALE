@@ -10,8 +10,8 @@ let frasesEstudiante = ['el conocimiento es poder', ' Aprender nunca es una pér
 
 console.log(detectarPlagio(base, frasesEstudiante));
 
-let b = prompt("Frases de la base (separadas por ;):");
-let f = prompt("Frases del estudiante (separadas por ;):");
+let b = prompt("Frase 1 (separadas por ;):");
+let f = prompt("Frase 2 (separadas por ;):");
 
 if (b && f) {
     let arrB = b.split(';').map(f => f.trim());
